@@ -6,16 +6,16 @@ import org.example.domain.enums.Card;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.SortedSet; import java.util.TreeSet;
+import java.util.*;
 
 @Component  //make the class available as bean in spring container
 public class GameSetup {
+    //Data container of parameters not changing during a game
     private static final Logger logger = LoggerFactory.getLogger(GameSetup.class);
-    private SortedSet<Card> cardsUsed = new TreeSet<>();	//The cards used, subset of cardTypes according to play field size
-    private int nRows;	//	Number of rows of play field
-    private int nCols;	//	Number of columns of play field
-    final public boolean alwaysShowCards=false;   //true <=> always show cards
+    private Set<Card> cards = new HashSet<>();	//The cards available
+    private int nRows;	//	Number of rows in play field
+    private int nCols;	//	Number of columns in play field
+    final public boolean alwaysShowCards=false;   //true <=>  show all cards
 
     GameSetup () {  //constructor
         this(2,3);
@@ -28,7 +28,7 @@ public class GameSetup {
     };
 
     public void setCardsUsed() throws RuntimeException {
-        //This method creates set cardsUsed of type enum Card
+        //This method creates the set cards
 
         if (nRows * nCols % 2  != 0)  //set exception?
             throw new RuntimeException("Incorrect combination of nRows and nCols");
@@ -36,9 +36,9 @@ public class GameSetup {
         SortedSet<Card> allct = new TreeSet<>();  //Gross set of cards
         Collections.addAll(allct, Card.values());
 
-        cardsUsed.clear();
+        cards.clear();
         for (int i = 0; i < nRows * nCols / 2; i++) {
-            Card card = allct.first();        cardsUsed.add(card);
+            Card card = allct.first();        cards.add(card);
             allct.remove(card);  //remove from set so not added again to cardsUsed
         }
     }
@@ -53,7 +53,7 @@ public class GameSetup {
 
     public int getnRows() {  return nRows;   }
     public int getnCols() {  return nCols;   }
-    public SortedSet<Card> getCardsUsed() {     return cardsUsed; }
+    public Set<Card> getCardsUsed() {     return cards; }
 
     public Boolean nonfeasCardpos(CardPos pos) {
         Boolean anytosmall = (pos.getCi() < 1) || (pos.getRi() < 1);
@@ -62,7 +62,7 @@ public class GameSetup {
     }
 
     public int getNofCardsused() {
-        return cardsUsed.size();
+        return cards.size();
     }
 
 

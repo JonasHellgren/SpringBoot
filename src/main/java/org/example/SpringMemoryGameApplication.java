@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-public class SpringApplication {
+public class SpringMemoryGameApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(SpringApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringMemoryGameApplication.class);
 
 
     public static void main(String[] args) {
-        org.springframework.boot.SpringApplication.run(SpringApplication.class, args);  }
+        org.springframework.boot.SpringApplication.run(SpringMemoryGameApplication.class, args);  }
 
         @Autowired
         GameDataService gameDataService;
@@ -28,11 +28,11 @@ public class SpringApplication {
         @Bean
         //The demo() method returns a CommandLineRunner bean that automatically runs the code when
         //the application launches
-        public CommandLineRunner demo() {
+        public CommandLineRunner runGame() {
             return (args) -> {
 
                 HumanMachinInterface hmi=gameDataService.humanMachinInterface;  //reference to save text
-                // fetch all customers
+
                 log.info("Setting up data");
                 gameDataService.getGameSetup().setnCols(hmi.readNcolOrNRows("Nof columns"));
                 gameDataService.getGameSetup().setnRows(hmi.readNcolOrNRows("Nof rows"));
@@ -44,12 +44,12 @@ public class SpringApplication {
                     hmi.informPlayerSetup();   //inform player about card types of game
                     gameDataService.createPlayField();
                     gameDataService.gameStatus.resetFoundCards();
-                    while (gameDataService.gameStatus.getNofFoundCards() < gameDataService.gameSetup.getNofCardsused()) {
+                    while (gameDataService.gameStatus.getNofCardsFound() < gameDataService.gameSetup.getNofCardsused()) {
                         gameDataService.humanMachinInterface.setHashCodeListForPlayerChosenPos(); //player input
                         gameDataService.showPlayfield();  //show player field
                         gameLogicService.updateStatus();  //update game status accordingly
                     }  //end of while
-
+                hmi.informPlayerAfterGame();
                 } while (gameDataService.humanMachinInterface.readnewgamePlayer());  //play again?
 
             };

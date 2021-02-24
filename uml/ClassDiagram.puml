@@ -1,0 +1,89 @@
+@startuml
+
+!define DARKBLUE
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+!define CLASSCOMMENT(x) <color:white>x</color>
+!define COMMENT(x) <color:yellow>x</color>
+
+class GameDataService << (S,orchid) >>
+class GameLogicService << (S,orchid) >>
+class SpringMemoryGameApplication << (A,orchid) >>
+
+class SpringMemoryGameApplication {
+ CLASSCOMMENT(Main function. Services are injected for loose coupling but can be normal "new" objects also.)
+ GameDataService gameDataService  COMMENT(Injected dependency)
+ GameLogicService gameLogicService  COMMENT(Injected dependency)
+ +CommandLineRunner runGame()    COMMENT(Multiple calls to funtions in services)
+     }
+
+
+class  GameDataService {
+CLASSCOMMENT(Service related to data management)
+CLASSCOMMENT(Annotation is @Service to indicate that it's holding the business logic)
+GameSetup gameSetup    COMMENT(Injected dependency)
+GameStatus gameStatus    COMMENT(Injected dependency)
+HumanMachinInterface humanMachinInterface  COMMENT(Injected dependency)
++createPlayField()  COMMENT(fills playfield with random cards)
++showPlayfield()
+}
+
+class  GameLogicService {
+CLASSCOMMENT(Service related game logic i.e. how game is updated)
+CLASSCOMMENT(Annotation is @Service)
+GameStatus gameStatus    COMMENT(Injected dependency)
++updateStatus()  COMMENT(updates game status according to player input)
+}
+
+class CardPos {
+CLASSCOMMENT(For keeping track of columns and row of cards)
+int ri
+int ci
+}
+
+class  Card {
+CLASSCOMMENT(Enum where letters indicate different cards)
+}
+
+class GameSetup {
+CLASSCOMMENT(Data container of parameters not changing during a game)
+Set<Card> cards  COMMENT(The cards available)
+int nRows  COMMENT(Number of rows in play field)
+int nCols  COMMENT(Number of columns in play field)
+boolean alwaysShowCards  COMMENT(true <=>  show all cards)
++setCardsUsed()  COMMENT(This method creates the set cards )
++other minor functions()
+}
+
+class GameStatus {
+Set<Card> cardsFound
+int nofMoves
+List<Integer> hashCodesOfPlayerchosenPos  COMMENT(hash numbers of position for player chosen cards)
+Map<Integer, Card> playField
+GameSetup gameSetup   COMMENT(Injected dependency)
++getCardAtPos()
++placeCardAtPos()
+}
+
+
+
+class HumanMachinInterface {
+CLASSCOMMENT(Handles all player interaction for example chosen cards)
+Scanner input    COMMENT(player input object)
+GameSetup gameSetup   COMMENT(Injected dependency)
+GameSetup gameStatus   COMMENT(Injected dependency)
++Multiple functions dealing with player interaction()
+}
+
+SpringMemoryGameApplication -down-> GameDataService
+SpringMemoryGameApplication -down-> GameLogicService
+
+GameDataService -down-> GameSetup
+GameDataService -down-> GameStatus
+GameDataService -down-> HumanMachinInterface
+
+GameLogicService -down-> GameStatus
+
+GameStatus -[hidden]-> Card
+GameStatus -[hidden]-> CardPos
+
+@enduml

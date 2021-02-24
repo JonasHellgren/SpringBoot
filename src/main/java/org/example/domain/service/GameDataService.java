@@ -15,6 +15,8 @@ import java.util.*;
 
 @Service //beans with @Service to indicate that it's holding the business logic
 public class GameDataService {
+    //Service related to data management
+
     private static final Logger logger = LoggerFactory.getLogger(GameSetup.class);
 
     @Autowired
@@ -41,8 +43,9 @@ public class GameDataService {
         return humanMachinInterface;
     }
 
-    public void   createPlayField() { //This function fills playfield with random cards
-        SortedSet<Card> cardtypes;
+    public void   createPlayField() {
+        //This function fills playfield with random cards
+        Set<Card> cardtypes;
         cardtypes = gameSetup.getCardsUsed();  //Set of card types
         List<Card> cards = new LinkedList<>();  //Set of cards used
         for (Card c : cardtypes) {  //create list with duplicate of every card types
@@ -65,7 +68,7 @@ public class GameDataService {
 
     public void showPlayfield() {
         Map<Integer, Card> playField = gameStatus.getPlayField();
-        Objects.requireNonNull(playField);  //easier debugging, throw up in the context of the object creation
+        Objects.requireNonNull(playField);  //easier debugging, throws up in the context of the object creation
         List<Integer> poskeylist = gameStatus.getHashCodesOfPlayerchosenPos();
         CardPos pos = new CardPos();
         Integer keypos;
@@ -79,7 +82,7 @@ public class GameDataService {
                     logger.error("Error in showPlayfield. Key position not existing.");
                 else {
                     card = gameStatus.getCardAtPos(pos);
-                    if (gameSetup.alwaysShowCards || poskeylist.contains(keypos) || gameStatus.foundCards.contains(card))
+                    if (gameSetup.alwaysShowCards || poskeylist.contains(keypos) || gameStatus.cardsFound.contains(card))
                         System.out.print(pos + ":" + gameStatus.getCardAtPos(pos) + "   ");
                     else
                         System.out.print("¤" + "   ");
