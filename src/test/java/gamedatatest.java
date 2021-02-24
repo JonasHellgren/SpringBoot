@@ -1,4 +1,3 @@
-import org.example.datatypes.Card;
 import org.example.domain.model.CardPos;
 import org.example.domain.model.GameSetup;
 import org.example.domain.model.GameStatus;
@@ -11,10 +10,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;

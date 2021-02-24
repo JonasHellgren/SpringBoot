@@ -1,15 +1,11 @@
 package org.example.domain.service;
 
 
-import org.example.SpringApplication;
-import org.example.datatypes.Card;
-import org.example.domain.model.GameSetup;
+import org.example.domain.enums.Card;
 import org.example.domain.model.GameStatus;
-import org.example.domain.model.HumanMachinInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

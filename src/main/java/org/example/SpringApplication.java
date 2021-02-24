@@ -1,7 +1,5 @@
 package org.example;
 
-import org.apache.logging.log4j.LogManager;
-import org.example.domain.api.GreetingController;
 import org.example.domain.model.HumanMachinInterface;
 import org.example.domain.service.GameDataService;
 import org.example.domain.service.GameLogicService;
