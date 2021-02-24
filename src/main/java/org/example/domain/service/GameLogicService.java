@@ -1,58 +1,46 @@
 package org.example.domain.service;
 
 
+import org.example.SpringApplication;
+import org.example.datatypes.Card;
+import org.example.domain.model.GameSetup;
+import org.example.domain.model.GameStatus;
+import org.example.domain.model.HumanMachinInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@Service //beans with @Service to indicate that it's holding the business logic
 public class GameLogicService {
-   //This class contains setup and status classes
+   //This service contains logic for game updating
+   private static final Logger log = LoggerFactory.getLogger(GameLogicService.class);
+
+    @Autowired
+    public GameStatus gameStatus;
 
 
     public GameLogicService() {  //Constructor
-       // createPlayField();   //the functions fills the variable playField located in status
-    }
-/*
+     }
+
     public void updateStatus()  {  //This functions updates status according to player input
-       status.setNofMoves(status.getNofMoves()+1);
-       List<Integer>  poskeylist=status.getKeysofPlayerchosenPos();
-       Set<Integer> set = new HashSet<>(poskeylist);  //to check if duplicates in list
-       Map<Integer, Card> playField=status.getPlayField(); //reference to variable playField
+       gameStatus.setNofMoves(gameStatus.getNofMoves()+1);
+       List<Integer>  posHashList=gameStatus.getHashCodesOfPlayerchosenPos();
+       Set<Integer> set = new HashSet<>(posHashList);  //to check if duplicates in list
+       Map<Integer, Card> playField=gameStatus.getPlayField(); //reference to variable playField
 
+        log.debug("posHashList:"+posHashList);
        //nothing happens if same card (position) chosen twice
-        if(set.size() == poskeylist.size()){  //There are position duplicates, i.e. not same card taken
-            Card c1=playField.get(poskeylist.get(0));
-            Card c2=playField.get(poskeylist.get(1));
-            if (c1.equals(c2)) {    status.foundCards.add(c1);   }
+        if(set.size() == posHashList.size()){  //There are position duplicates, i.e. not same card taken
+            Card c1=playField.get(posHashList.get(0));
+            Card c2=playField.get(posHashList.get(1));
+            log.debug("c1:"+c1+", c2:"+c2);
+            if (c1.equals(c2)) {    gameStatus.foundCards.add(c1);   }
         }
     }
-
-        public void   createPlayField() { //This function fills playfield with random cards
-            SortedSet<Card> cardtypes;
-            cardtypes = setup.getCardsUsed();  //Set of card types
-            List<Card> cards = new LinkedList<>();  //Set of cards used
-            for (Card c : cardtypes) {  //create list with duplicate of every card types
-                cards.add(c);     cards.add(c);
-            }
-
-            Random rand = new Random();
-            Map<Integer, Card> playField = status.getPlayField(); //reference to variable playField
-            CardPos pos=new CardPos();
-            for (int ri = 1; ri <= setup.getnRows(); ri++)  //ri corresponds to row
-                for (int ci = 1; ci <= setup.getnCols(); ci++)  //ci corresponds to column
-                {
-                    int ridx = rand.nextInt(cards.size()); pos.setRiCi(ri,ci);
-                    playField.put(getKeypos(pos), cards.get(ridx));  //add card in playfield
-                    cards.remove(ridx);  //remove to not select again
-                }
-        }
-
-    public static int getKeypos(CardPos pos) {  //static <=> can be accessed without class creation (new)
-        return pos.getRi() * setup.getnCols() + pos.getCi(); }
-
-    public int getNofCardsused() {  //return the number of card types used
-        SortedSet<Card> cardsUsed =  setup.getCardsUsed(); return cardsUsed.size();
-    }
-
- */
 
 }
 

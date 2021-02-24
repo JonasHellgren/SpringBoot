@@ -2,7 +2,9 @@ import org.example.datatypes.Card;
 import org.example.domain.model.CardPos;
 import org.example.domain.model.GameSetup;
 import org.example.domain.model.GameStatus;
+import org.example.domain.model.HumanMachinInterface;
 import org.example.domain.service.GameDataService;
+import org.example.domain.service.GameLogicService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,17 +17,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={GameDataService.class, GameSetup.class, GameStatus.class})
+@SpringBootTest(classes={GameDataService.class,GameLogicService.class, GameSetup.class, GameStatus.class, HumanMachinInterface.class})
 public class gamedatatest {
     private static final Logger logger = LoggerFactory.getLogger(gamedatatest.class);
 
     @Autowired
     GameDataService gameDataService;
+    @Autowired
+    GameLogicService gameLogicService;
 
     @Before
     public void init() {
         logger.info("Tests started");
+        gameDataService.getGameSetup().setnCols(2);
+        gameDataService.getGameSetup().setnRows(2);
+        gameDataService.getGameSetup().setCardsUsed();
+        gameDataService.createPlayField();
+        //gameDataService.showPlayfield();
     }
 
     @Test
@@ -34,20 +45,42 @@ public class gamedatatest {
         //Assert.assertTrue(keyStore.isInStore(Arrays.asList(2)));
     }
 
+
     @Test
-    public void createPlayField() {
-        gameDataService.createPlayField();
+    public void informPlayerSetup() {
+        gameDataService.getHumanMachinInterface().informPlayerSetup();
 
     }
 
     @Test
+    public void informPlayerAfterGame() {
+        gameDataService.getHumanMachinInterface().informPlayerAfterGame();
+    }
+
+    @Test
     public void showPlayfield() {
-        gameDataService.informPlayerSetup();
+        setHashCodesOfPlayerchosenPos();
         gameDataService.showPlayfield();
 
-    //CardPos pos=new CardPos(1,1);
-    //System.out.println(gameDataService.getGameStatus().getCardAtPos(pos));
-}
+    }
+
+    public void setHashCodesOfPlayerchosenPos() {
+        CardPos pos = new CardPos();  //declaration
+        List<Integer> hashCodeList = gameDataService.getGameStatus().getHashCodesOfPlayerchosenPos();  //declaration
+
+        pos.setRiCi(1, 1);
+        hashCodeList.add(gameDataService.getGameStatus().calcHashCodePos(pos));  //first
+        pos.setRiCi(1, 2);
+        hashCodeList.add(gameDataService.getGameStatus().calcHashCodePos(pos));   //second
+    }
+
+    @Test
+    public void updateStatus() {
+        setHashCodesOfPlayerchosenPos();
+        gameLogicService.updateStatus();
+        gameDataService.showPlayfield();
+    }
+
 }
 
 

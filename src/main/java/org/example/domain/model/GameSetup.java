@@ -13,11 +13,16 @@ import java.util.SortedSet; import java.util.TreeSet;
 public class GameSetup {
     private static final Logger logger = LoggerFactory.getLogger(GameSetup.class);
     private SortedSet<Card> cardsUsed = new TreeSet<>();	//The cards used, subset of cardTypes according to play field size
-    private int nRows=2;	//	Number of rows of play field
-    private int nCols=3;	//	Number of columns of play field
+    private int nRows;	//	Number of rows of play field
+    private int nCols;	//	Number of columns of play field
     final public boolean alwaysShowCards=false;   //true <=> always show cards
 
     GameSetup () {  //constructor
+        this(2,3);
+    };
+
+    GameSetup (int nRows,int nCols) {  //constructor
+        this.nRows=nRows;   this.nCols=nCols;
         setCardsUsed();
         logger.info("GameSetup created");
     };
@@ -31,15 +36,35 @@ public class GameSetup {
         SortedSet<Card> allct = new TreeSet<>();  //Gross set of cards
         Collections.addAll(allct, Card.values());
 
+        cardsUsed.clear();
         for (int i = 0; i < nRows * nCols / 2; i++) {
             Card card = allct.first();        cardsUsed.add(card);
             allct.remove(card);  //remove from set so not added again to cardsUsed
         }
     }
 
+    public void setnRows(int nRows) {
+        this.nRows = nRows;
+    }
+
+    public void setnCols(int nCols) {
+        this.nCols = nCols;
+    }
+
     public int getnRows() {  return nRows;   }
     public int getnCols() {  return nCols;   }
     public SortedSet<Card> getCardsUsed() {     return cardsUsed; }
+
+    public Boolean nonfeasCardpos(CardPos pos) {
+        Boolean anytosmall = (pos.getCi() < 1) || (pos.getRi() < 1);
+        Boolean anytolarge = (pos.getCi() > getnCols()) || (pos.getRi() > getnRows());
+        return (anytosmall || anytolarge);
+    }
+
+    public int getNofCardsused() {
+        return cardsUsed.size();
+    }
+
 
     @Override
     public String toString() {

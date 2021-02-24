@@ -5,15 +5,17 @@ import org.example.datatypes.Card;
 import org.example.domain.model.CardPos;
 import org.example.domain.model.GameSetup;
 import org.example.domain.model.GameStatus;
+import org.example.domain.model.HumanMachinInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.util.*;
 
-@Component
+@Service //beans with @Service to indicate that it's holding the business logic
 public class GameDataService {
     private static final Logger logger = LoggerFactory.getLogger(GameSetup.class);
 
@@ -21,6 +23,9 @@ public class GameDataService {
     public GameSetup gameSetup;
     @Autowired
     public GameStatus gameStatus;
+    @Autowired
+    public HumanMachinInterface humanMachinInterface;
+
 
     public GameDataService() {
         logger.info("GameDataService created");
@@ -32,6 +37,10 @@ public class GameDataService {
 
     public GameStatus getGameStatus() {
         return gameStatus;
+    }
+
+    public HumanMachinInterface getHumanMachinInterface() {
+        return humanMachinInterface;
     }
 
     public void   createPlayField() { //This function fills playfield with random cards
@@ -54,15 +63,12 @@ public class GameDataService {
             }
     }
 
-    public void informPlayerSetup() {  //inform player about card types of game
-        gameSetup.setCardsUsed();
-        System.out.println("The type of cards in the game are:"+gameSetup.getCardsUsed());
-    }
+
 
     public void showPlayfield() {
         Map<Integer, Card> playField = gameStatus.getPlayField();
         Objects.requireNonNull(playField);  //easier debugging, throw up in the context of the object creation
-        List<Integer> poskeylist = gameStatus.getKeysofPlayerchosenPos();
+        List<Integer> poskeylist = gameStatus.getHashCodesOfPlayerchosenPos();
         CardPos pos = new CardPos();
         Integer keypos;
         Card card;

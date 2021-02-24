@@ -14,9 +14,9 @@ public class GameStatus {
 
     public Set<Card> foundCards = new HashSet<>();  //the set of cards founds by the player
     private int nofMoves=0;
-    public List<Integer> keysofPlayerchosenPos =new ArrayList<>();  //hash numbers of chosen cards
+    public List<Integer> hashCodesOfPlayerchosenPos =new ArrayList<>();  //hash numbers of chosen cards
     private Map<Integer, Card> playField = new HashMap<>();  // Creating HashMap for playfield
-    @Autowired  //will make object search for laptop in spring container, search by type is default
+    @Autowired  //will make object search for gameSetup in spring container, search by type is default
     private GameSetup gameSetup;
 
     public GameStatus () {
@@ -24,7 +24,7 @@ public class GameStatus {
     };  //constructor
 
     public int getNofFoundCards() {     return foundCards.size();   }
-    public List<Integer> getKeysofPlayerchosenPos() {   return keysofPlayerchosenPos;   }
+    public List<Integer> getHashCodesOfPlayerchosenPos() {   return hashCodesOfPlayerchosenPos;   }
     public int getNofMoves() {     return nofMoves;   }
     public Map<Integer, Card> getPlayField() {      return playField;   }
     public void setNofMoves(int nofMoves) {     this.nofMoves = nofMoves;     }
@@ -43,10 +43,10 @@ public class GameStatus {
         playField.put(calcHashCodePos(pos), card);  //add card in playfield
     }
 
-    public Boolean nonfeasCardpos(CardPos pos) {
-        Boolean anytosmall = (pos.getCi() < 1) || (pos.getRi() < 1);
-        Boolean anytolarge = (pos.getCi() > gameSetup.getnCols()) || (pos.getRi() > gameSetup.getnRows());
-        return (anytosmall || anytolarge);
+    public void resetFoundCards() {
+        foundCards.clear();
     }
+
+
 
 }
