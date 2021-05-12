@@ -1,6 +1,6 @@
-package org.example.domain.model;
+package org.example.memorygame.model;
 
-import org.example.domain.enums.Card;
+import org.example.memorygame.enums.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

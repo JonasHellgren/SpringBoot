@@ -1,0 +1,48 @@
+@startuml
+
+!define DARKBLUE
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+class Person {
+UUID id
+String name
+getId()
+getName()
+}
+
+class PersonController {
+-PersonService personService
++addPerson()
++getAllPerson()
++getPersonById()
++deletePersonById()
+}
+
+class PersonService {
+-PersonDao personDao
++insertPerson()
++getAllPersons()
++getPersonById()
++deletePersonById()
++updatePerson()
+}
+
+class FakePersonDataAccessService {
+-List<Person> DB
+}
+
+interface PersonDao {
+    +insertPerson()
+    +selectAllPersons()
+    +selectPersonById()
+    +deletePersonById()
+    +updatePersonById()
+}
+
+'association defines a relationship between classes of objects that allows one object instance to cause another to perform an action on its behalf
+PersonController --> PersonService : association relationship: \n one object cause another \n to perform a request
+
+PersonService -->  FakePersonDataAccessService
+ PersonDao  <|-- FakePersonDataAccessService
+
+@enduml

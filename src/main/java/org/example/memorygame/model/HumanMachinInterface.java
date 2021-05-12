@@ -1,4 +1,4 @@
-package org.example.domain.model;
+package org.example.memorygame.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

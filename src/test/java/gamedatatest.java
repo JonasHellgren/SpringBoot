@@ -1,9 +1,9 @@
-import org.example.domain.model.CardPos;
-import org.example.domain.model.GameSetup;
-import org.example.domain.model.GameStatus;
-import org.example.domain.model.HumanMachinInterface;
-import org.example.domain.service.GameDataService;
-import org.example.domain.service.GameLogicService;
+import org.example.memorygame.model.CardPos;
+import org.example.memorygame.model.GameSetup;
+import org.example.memorygame.model.GameStatus;
+import org.example.memorygame.model.HumanMachinInterface;
+import org.example.memorygame.service.GameDataService;
+import org.example.memorygame.service.GameLogicService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

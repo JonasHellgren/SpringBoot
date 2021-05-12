@@ -1,0 +1,44 @@
+@startuml
+
+!define DARKBLUE
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+!define CLASSCOMMENT(x) <color:white>x</color>
+!define Q(x) <color:red>x</color>
+!define COMMENT(x) <color:yellow>x</color>
+
+
+class AsyncMethodApplication {
+CLASSCOMMENT(taskExecutor has @Bean annotation <=>  executed and register the return value as a bean within a BeanFactory)
++ void main()
++Executor taskExecutor()  COMMENT(This class also customizes the Executor by defining a new bean.)
+}
+
+
+
+class User {
+CLASSCOMMENT(The @JsonIgnoreProperties annotation tells Spring to ignore any attributes not listed in the class)
+-String name, blog
++getter()
++setters()
+}
+
+class GitHubLookupService {
+CLASSCOMMENT(@Service annotation: making it a candidate for Spring’s component)
+RestTemplate restTemplate  COMMENT(To invoke github and then convert the answer into a User object)
++CompletableFuture<User> findUser(String user)()
+}
+
+class AppRunner {
+CLASSCOMMENT(Injects the GitHubLookupService and calls that service three times)
+-GitHubLookupService gitHubLookupService  COMMENT(Injected)
++run()  COMMENT(asynchronous lookups; wait; print results)
+}
+
+interface CommandLineRunner { }
+
+AsyncMethodApplication --> AppRunner
+CommandLineRunner <|-- AppRunner
+GitHubLookupService -[hidden]-> User
+AppRunner --> GitHubLookupService
+
+@enduml

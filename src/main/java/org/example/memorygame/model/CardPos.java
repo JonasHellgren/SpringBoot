@@ -1,4 +1,4 @@
-package org.example.domain.model;
+package org.example.memorygame.model;
 
 public class CardPos {
     //For keeping track of columns and row of cards

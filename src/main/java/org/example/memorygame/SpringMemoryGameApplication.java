@@ -1,8 +1,8 @@
-package org.example;
+package org.example.memorygame;
 
-import org.example.domain.model.HumanMachinInterface;
-import org.example.domain.service.GameDataService;
-import org.example.domain.service.GameLogicService;
+import org.example.memorygame.model.HumanMachinInterface;
+import org.example.memorygame.service.GameDataService;
+import org.example.memorygame.service.GameLogicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class SpringMemoryGameApplication {
         GameLogicService gameLogicService;
 
         @Bean
-        //The demo() method returns a CommandLineRunner bean that automatically runs the code when
+        //The runGame() method returns a CommandLineRunner bean that automatically runs the code when
         //the application launches
         public CommandLineRunner runGame() {
             return (args) -> {

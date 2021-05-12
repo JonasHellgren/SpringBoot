@@ -1,11 +1,11 @@
-package org.example.domain.service;
+package org.example.memorygame.service;
 
 
-import org.example.domain.enums.Card;
-import org.example.domain.model.CardPos;
-import org.example.domain.model.GameSetup;
-import org.example.domain.model.GameStatus;
-import org.example.domain.model.HumanMachinInterface;
+import org.example.memorygame.enums.Card;
+import org.example.memorygame.model.CardPos;
+import org.example.memorygame.model.GameSetup;
+import org.example.memorygame.model.GameStatus;
+import org.example.memorygame.model.HumanMachinInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
