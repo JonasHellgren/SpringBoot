@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="BronnoyTP" />
+        <module name="SpringTeluskoBeanDemo" />
+        <module name="BuildingARESTfulWebService" />
+        <module name="MemorySpringBased" />
+        <module name="bronnoytp" />
+        <module name="JavaRenderedInD3" />
+        <module name="SpringBoot" />
+        <module name="SpringBootTutorialforBeginners" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BronnoyTP" options="-parameters" />
+      <module name="BuildingARESTfulWebService" options="-parameters" />
+      <module name="JavaRenderedInD3" options="-parameters" />
+      <module name="MemorySpringBased" options="-parameters" />
+      <module name="SpringBoot" options="-parameters" />
+      <module name="SpringBootTutorialforBeginners" options="-parameters" />
+      <module name="SpringTeluskoBeanDemo" options="-parameters" />
+      <module name="bronnoytp" options="-parameters" />
+    </option>
+  </component>
+</project>
