@@ -1,0 +1,9 @@
+{
+  "books":
+[
+  {  "name": "The bible", "serNr": 1  },
+  {  "name": "Villospår", "serNr": 2  },
+  {  "name": "Computer graphics","serNr": 3 }
+],
+  "totalPrice": 100
+}

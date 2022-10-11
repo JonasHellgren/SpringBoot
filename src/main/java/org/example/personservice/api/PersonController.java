@@ -11,6 +11,12 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+
+/**
+ * Post example:  http://localhost:8080/api/v1/person
+ * {  "id": "0a60b89c-494e-11ed-b878-0242ac120002", "name": "Kalle" }
+ */
+
 @RequestMapping("api/v1/person")    //client url to respond to
 @RestController  //express this is an object that defines endpoints clients can consume
 public class PersonController {

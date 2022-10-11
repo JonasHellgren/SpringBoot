@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduledTask {
 
-    public static final long CALLING_TIME = 5000L;
+    public static final long CALLING_TIME = 500L;
     public static final long CALC_TIME = 2000L;
     @Autowired
     CalculationService calculationService;
